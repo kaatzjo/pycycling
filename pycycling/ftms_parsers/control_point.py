@@ -31,7 +31,6 @@ class FTMSControlPointOpCode(Enum):
     SET_WHEEL_CIRCUMFERENCE = 0x12
     SET_SPIN_DOWN_CONTROL = 0x13
     SET_TARGETED_CADENCE = 0x14
-    RESPONSE_CODE = 0x80
 
 def form_ftms_control_command(opcode: FTMSControlPointOpCode, parameter: int = 0):
     """
@@ -65,8 +64,6 @@ def form_ftms_control_command(opcode: FTMSControlPointOpCode, parameter: int = 0
     elif opcode == FTMSControlPointOpCode.STOP_OR_PAUSE:
         # parameter: 01=stop, 02=pause
         return b"\x08" + parameter.to_bytes(1, "little", signed=False)
-    elif opcode == FTMSControlPointOpCode.RESPONSE_CODE:
-        return b"\x80"
     elif opcode == FTMSControlPointOpCode.SET_TARGETED_EXPENDED_ENERGY:
         # parameter: uint16, 1calories
         return b"\x09" + parameter.to_bytes(2, "little", signed=False)
